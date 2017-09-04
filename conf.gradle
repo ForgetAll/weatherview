@@ -1,0 +1,41 @@
+ext {
+    android = [
+            compileSdkVersion: 25,
+            buildToolsVersion: "25.0.3",
+            minSdkVersion    : 17,
+            targetSdkVersion : 25,
+            applicationId    : "com.csjbot.blackgaga",
+            versionCode      : 1,
+            versionName      : 'V0.0.0.0001',
+    ]
+
+    dependencies = [
+            // 网络请求框架
+            "retrofit"       : "com.squareup.retrofit2:retrofit:2.3.0",
+            // 请求框架适配器
+            "retrofit_rxjava": "com.squareup.retrofit2:adapter-rxjava2:2.3.0",
+            "retrofit_gson"  : "com.squareup.retrofit2:converter-gson:2.3.0",
+            // gson
+            "gson"           : "com.google.code.gson:gson:2.8.1",
+            // rxjava2
+            "rxjava2"        : "io.reactivex.rxjava2:rxjava:2.1.2",
+            // rxandroid
+            "rxandroid"      : "io.reactivex.rxjava2:rxandroid:2.0.1",
+            // Glide
+            "glide"          : "com.github.bumptech.glide:glide:4.0.0",
+            // 黄油刀
+            "butterknife"    : "com.jakewharton:butterknife:8.4.0",
+            "butterknife_apt": "com.jakewharton:butterknife-compiler:8.4.0",
+            // 二维码生成和美化
+            "awesomeQRCode"  : "com.github.SumiMakito:AwesomeQRCode:1.0.5",
+            // 事件总线
+            "eventbus"       : "org.greenrobot:eventbus:3.0.0",
+            // bugly
+            "bugly_sdk"      : "com.tencent.bugly:crashreport:latest.release",
+            "bugly_ndk"      : "com.tencent.bugly:nativecrashreport:latest.release",
+            "supertextview"  : "com.github.lygttpod:SuperTextView:2.1.0",
+            // anko
+            "anko"           : "org.jetbrains.anko:anko:0.10.1"
+    ]
+
+}
