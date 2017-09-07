@@ -29,6 +29,33 @@ object DataSource {
                     e ->
                     e.printStackTrace()
                 })
+        server.getRemoteTechBeanStaredList(Type.WELFARE, 100, 1)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+
+                }, {
+                    e ->
+                    e.printStackTrace()
+                })
+        server.getRemoteTechBeanStaredList(Type.WELFARE, 100, 1)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+
+                }, {
+                    e ->
+                    e.printStackTrace()
+                })
+        server.getRemoteTechBeanStaredList(Type.WELFARE, 100, 1)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+
+                }, {
+                    e ->
+                    e.printStackTrace()
+                })
     }
 
 }

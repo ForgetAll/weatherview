@@ -1,5 +1,4 @@
 #include <jni.h>
-#include <string>
 #include <malloc.h>
 
 #define ABS(a) ((a)<(0)?(-a):(a))
@@ -10,7 +9,7 @@ int *blur_ARGB_8888(int *, int, int, int);
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_xiasuhuei321_gank_1kotlin_JNIEntry_blur(JNIEnv *env, jclass obj,
+Java_com_xiasuhuei321_gank_1kotlin_ImageProcess_blur(JNIEnv *env, jclass obj,
                                                 jintArray arrayIn, jint h,
                                                 jint w, jint r) {
     jint *pixels;

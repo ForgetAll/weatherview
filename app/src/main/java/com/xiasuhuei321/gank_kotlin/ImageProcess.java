@@ -8,18 +8,18 @@ import android.graphics.Bitmap;
  * e-mail:xiasuhuei321@163.com
  */
 
-public class JNIEntry {
+public class ImageProcess {
 
     static {
         System.loadLibrary("image-lib");
     }
 
-    public static Bitmap blur(Bitmap bmp) {
+    public static Bitmap blur(Bitmap bmp, int radius) {
         int width = bmp.getWidth();
         int height = bmp.getHeight();
         int[] pixels = new int[width * height];
         bmp.getPixels(pixels, 0, width, 0, 0, width, height);
-        blur(pixels, width, height, 10);
+        blur(pixels, width, height, radius);
 //        bmp.setPixels(pixels, 0, width, 0, 0, width, height);
         bmp.recycle();
         bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
@@ -27,5 +27,9 @@ public class JNIEntry {
         return bmp;
     }
 
-    public static native void blur(int[] img, int width, int height, int radius);
+    public static Bitmap blur(Bitmap bmp) {
+        return blur(bmp, 20);
+    }
+
+    private static native void blur(int[] img, int width, int height, int radius);
 }

@@ -8,6 +8,4 @@ import android.view.View
  * author:luo
  * e-mail:xiasuhuei321@163.com
  */
-inline fun <reified T : View> Activity.find(id: Int): T {
-    return findViewById(id) as T
-}
+inline fun <reified T : View> Activity.find(id: Int) = findViewById(id) as T

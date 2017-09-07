@@ -14,12 +14,12 @@ object LogUtil {
     var defaultTag = "LogUtil"
     private val lineSeparator = System.getProperty("line.separator", "/n")
 
-    val V = Log.VERBOSE
-    val D = Log.DEBUG
-    val I = Log.INFO
-    val W = Log.WARN
-    val E = Log.ERROR
-    val A = Log.ASSERT
+    private val V = Log.VERBOSE
+    private val D = Log.DEBUG
+    private val I = Log.INFO
+    private val W = Log.WARN
+    private val E = Log.ERROR
+    private val A = Log.ASSERT
 
     val TOP_BORDER = "╔═══════════════════════════════════════════════════════════════════════════════════════════════════"
     private val LEFT_BORDER = "║ "
