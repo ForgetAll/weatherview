@@ -1,8 +1,8 @@
-package com.xiasuhuei321.gank_kotlin.datasource.remotesource
+package com.xiasuhuei321.gank_kotlin.datasource.remote
 
 import com.xiasuhuei321.gank_kotlin.datasource.ApiStore
 import com.xiasuhuei321.gank_kotlin.datasource.bean.TechBean
-import com.xiasuhuei321.gank_kotlin.datasource.helper.RetrofitHelper
+import com.xiasuhuei321.gank_kotlin.datasource.net.RetrofitHelper
 import io.reactivex.Observable
 
 
