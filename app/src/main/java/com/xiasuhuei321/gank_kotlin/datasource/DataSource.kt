@@ -1,5 +1,6 @@
 package com.xiasuhuei321.gank_kotlin.datasource
 
+import com.xiasuhuei321.gank_kotlin.datasource.code.Type
 import com.xiasuhuei321.gank_kotlin.datasource.localsource.LocalDataImpl
 import com.xiasuhuei321.gank_kotlin.datasource.remotesource.ServerDataImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -19,33 +20,6 @@ object DataSource {
      * 从网络获取数据，保存数据
      */
     fun initData() {
-        server.getRemoteTechBeanStaredList(Type.WELFARE, 100, 1)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-
-                }, {
-                    e ->
-                    e.printStackTrace()
-                })
-        server.getRemoteTechBeanStaredList(Type.WELFARE, 100, 1)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-
-                }, {
-                    e ->
-                    e.printStackTrace()
-                })
-        server.getRemoteTechBeanStaredList(Type.WELFARE, 100, 1)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-
-                }, {
-                    e ->
-                    e.printStackTrace()
-                })
         server.getRemoteTechBeanStaredList(Type.WELFARE, 100, 1)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())

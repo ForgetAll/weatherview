@@ -15,6 +15,7 @@ ext {
             // 请求框架适配器
             "retrofit_rxjava": "com.squareup.retrofit2:adapter-rxjava2:2.3.0",
             "retrofit_gson"  : "com.squareup.retrofit2:converter-gson:2.3.0",
+            "log_interceptor": "com.squareup.okhttp3:logging-interceptor:3.4.1",
             // gson
             "gson"           : "com.google.code.gson:gson:2.8.1",
             // rxjava2
