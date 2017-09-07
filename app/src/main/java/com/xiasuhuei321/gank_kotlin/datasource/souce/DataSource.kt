@@ -1,8 +1,9 @@
-package com.xiasuhuei321.gank_kotlin.datasource
+package com.xiasuhuei321.gank_kotlin.datasource.souce
 
 import com.xiasuhuei321.gank_kotlin.datasource.code.Type
-import com.xiasuhuei321.gank_kotlin.datasource.localsource.LocalDataImpl
-import com.xiasuhuei321.gank_kotlin.datasource.remotesource.ServerDataImpl
+import com.xiasuhuei321.gank_kotlin.datasource.local.LocalDataImpl
+import com.xiasuhuei321.gank_kotlin.datasource.remote.ServerDataImpl
+import com.xiasuhuei321.gank_kotlin.extension.io_main
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -21,8 +22,7 @@ object DataSource {
      */
     fun initData() {
         server.getRemoteTechBeanStaredList(Type.WELFARE, 100, 1)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
+                .io_main()
                 .subscribe({
 
                 }, {

@@ -1,6 +1,5 @@
-package com.xiasuhuei321.gank_kotlin.datasource.helper
+package com.xiasuhuei321.gank_kotlin.datasource.net
 
-import android.content.Context
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

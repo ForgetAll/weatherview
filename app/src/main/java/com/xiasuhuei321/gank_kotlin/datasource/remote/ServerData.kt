@@ -1,4 +1,4 @@
-package com.xiasuhuei321.gank_kotlin.datasource.remotesource
+package com.xiasuhuei321.gank_kotlin.datasource.remote
 
 import com.xiasuhuei321.gank_kotlin.datasource.bean.TechBean
 import io.reactivex.Observable
@@ -10,5 +10,6 @@ import io.reactivex.Observable
  * e-mail:xiasuhuei321@163.com
  */
 interface ServerData {
+
     fun getRemoteTechBeanStaredList(type: String, count: Int, pageIndex: Int): Observable<TechBean>
 }
