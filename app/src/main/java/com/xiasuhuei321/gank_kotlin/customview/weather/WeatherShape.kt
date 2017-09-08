@@ -13,6 +13,10 @@ abstract class WeatherShape(val start: PointF, val end: PointF) {
 
     var isInUse = false
 
+    var isRandom = false
+
+    var speed = 0.05f
+
     abstract var time: Long
 
     /**
@@ -25,7 +29,7 @@ abstract class WeatherShape(val start: PointF, val end: PointF) {
      */
     abstract fun draw(canvas: Canvas)
 
-    abstract fun randomDelay(): Long
+    abstract fun randomPre(): Long
 
     abstract fun initStyle()
 }

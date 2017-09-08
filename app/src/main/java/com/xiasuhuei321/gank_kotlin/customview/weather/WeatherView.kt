@@ -23,6 +23,7 @@ class WeatherView(context: Context, attributeSet: AttributeSet?, defaultStyle: I
     // 低级并发，Kotlin中支持的不是很好，所以用一下黑科技
     val lock = Object()
     var type = Weather.RAIN
+    var weatherShapePool = WeatherShapePool()
 
     @Volatile var canRun = false
     @Volatile var threadQuit = false
@@ -94,7 +95,7 @@ class WeatherView(context: Context, attributeSet: AttributeSet?, defaultStyle: I
     init {
         holder.addCallback(this)
         holder.setFormat(PixelFormat.RGBA_8888)
-        initData()
+//        initData()
         setZOrderOnTop(true)
 //        setZOrderMediaOverlay(true)
         thread.start()
@@ -117,9 +118,7 @@ class WeatherView(context: Context, attributeSet: AttributeSet?, defaultStyle: I
 
     private fun draw(canvas: Canvas, type: Weather, startTime: Long) {
         // type什么的先放一边，先实现一个
-        for (rain in rains) {
-            rain.draw(canvas)
-        }
+        weatherShapePool.drawRain(canvas)
     }
 
     enum class Weather {
