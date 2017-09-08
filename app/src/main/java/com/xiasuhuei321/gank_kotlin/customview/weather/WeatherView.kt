@@ -1,12 +1,14 @@
 package com.xiasuhuei321.gank_kotlin.customview.weather
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.PixelFormat
+import android.graphics.PorterDuff
 import android.util.AttributeSet
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import com.xiasuhuei321.gank_kotlin.extension.LogUtil
-import com.xiasuhuei321.gank_kotlin.extension.getScreenWidth
 import java.lang.Exception
 
 /**
@@ -14,12 +16,10 @@ import java.lang.Exception
  * author:luo
  * e-mail:xiasuhuei321@163.com
  */
-class WeatherView(context: Context, attributeSet: AttributeSet?, defaultStyle: Int) :
+class WeatherView(context: Context, attributeSet: AttributeSet? = null, defaultStyle: Int = 0) :
         SurfaceView(context, attributeSet, defaultStyle), SurfaceHolder.Callback {
     private val TAG = "WeatherView"
 
-    var time = 0L
-    val rainWidth = 5
     // 低级并发，Kotlin中支持的不是很好，所以用一下黑科技
     val lock = Object()
     var type = Weather.RAIN
@@ -27,16 +27,6 @@ class WeatherView(context: Context, attributeSet: AttributeSet?, defaultStyle: I
 
     @Volatile var canRun = false
     @Volatile var threadQuit = false
-
-    val rains = ArrayList<Rain>()
-
-    constructor(context: Context, attributeSet: AttributeSet) : this(context, attributeSet, 0) {
-        LogUtil.e(TAG, "构建方法2")
-    }
-
-    constructor(context: Context) : this(context, null, 0) {
-        LogUtil.e(TAG, "构建方法1")
-    }
 
     var thread = Thread {
         while (!threadQuit) {
@@ -71,6 +61,8 @@ class WeatherView(context: Context, attributeSet: AttributeSet?, defaultStyle: I
 
     override fun surfaceChanged(holder: SurfaceHolder?, format: Int, width: Int, height: Int) {
         // surface发生了变化
+//        canRun = true
+
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder?) {
@@ -101,21 +93,6 @@ class WeatherView(context: Context, attributeSet: AttributeSet?, defaultStyle: I
         thread.start()
     }
 
-    private fun initData() {
-        val space = context.getScreenWidth() / 20
-        var i = 0
-        var currentSpace = 0f
-        // 将其均匀的分布在屏幕x方向上
-        while (i < 20) {
-            val rain = Rain(PointF(currentSpace, 0f), PointF(currentSpace, 0f))
-            rain.originLength = 20f
-            rain.originX = currentSpace
-            rains.add(rain)
-            currentSpace += space
-            i++
-        }
-    }
-
     private fun draw(canvas: Canvas, type: Weather, startTime: Long) {
         // type什么的先放一边，先实现一个
         weatherShapePool.drawRain(canvas)
@@ -128,5 +105,12 @@ class WeatherView(context: Context, attributeSet: AttributeSet?, defaultStyle: I
 
     fun onDestroy() {
         threadQuit = true
+        canRun = true
+        try {
+            synchronized(lock) {
+                lock.notify()
+            }
+        } catch (e: Exception) {
+        }
     }
 }

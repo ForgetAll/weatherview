@@ -7,7 +7,7 @@
 
 
     <com.xiasuhuei321.gank_kotlin.customview.weather.WeatherView
-        android:id="@+id/wv_test"
+        android:id="@+id/weatherWv"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -26,6 +26,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/weatherIv"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginTop="100dp"

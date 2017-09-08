@@ -3,6 +3,7 @@ package com.xiasuhuei321.gank_kotlin.customview.weather
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.PointF
 import com.xiasuhuei321.gank_kotlin.context
 import com.xiasuhuei321.gank_kotlin.extension.getScreenHeight
 import com.xiasuhuei321.gank_kotlin.extension.getScreenWidth
@@ -12,8 +13,10 @@ import java.util.*
  * Created by xiasuhuei321 on 2017/9/5.
  * author:luo
  * e-mail:xiasuhuei321@163.com
+ *
+ * desc:
  */
-class Rain(start: android.graphics.PointF, end: android.graphics.PointF) : WeatherShape(start, end) {
+class Rain(start: PointF, end: PointF) : WeatherShape(start, end) {
 
     override var TAG = "Rain"
 
@@ -32,8 +35,8 @@ class Rain(start: android.graphics.PointF, end: android.graphics.PointF) : Weath
     //    var originSpeed = speed
     var rainAlpha = 100
     private var lastTime = 0L // 从开始到现在下落所经过的时间
-    var rainColor = Color.WHITE
-    override var time: Long = 5000 // 总共下落时间
+    var rainColor = Color.parseColor("#efefef")
+//    override var time: Long = 5000 // 总共下落时间
 
     var paint = Paint().apply {
         color = rainColor
@@ -44,17 +47,16 @@ class Rain(start: android.graphics.PointF, end: android.graphics.PointF) : Weath
 
     // 计算加速度
     override fun getAcceleration(): Float {
-        val acc = context.getScreenHeight() / (time * time).toFloat()
+//        val acc = context.getScreenHeight() / (time * time).toFloat()
 //        LogUtil.i(TAG, "acc = " + acc)
         // 恩，决定了，放弃加速，匀速走完
         return 0f
     }
 
     /**
-     * 此函数用来绘制相对"固定"的雨滴
+     * 绘制过程在此完成
      */
     override fun draw(canvas: Canvas) {
-        // 计算公式： s = at^2
         if (!isInUse) {
             lastTime += randomPre()
             initStyle()
@@ -64,8 +66,9 @@ class Rain(start: android.graphics.PointF, end: android.graphics.PointF) : Weath
         start.y += distance
         end.y += distance
         canvas.drawLine(start.x, start.y, end.x, end.y, paint)
+        // 很重要，持续时间增加
         lastTime += timeSpace
-        // 可以复用了
+        // 如果已经超出屏幕，表示可以服用了，清空原先状态
         if (end.y >= context.getScreenHeight()) {
             clear()
         }
