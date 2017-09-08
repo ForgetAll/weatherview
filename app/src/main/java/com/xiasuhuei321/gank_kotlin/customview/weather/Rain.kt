@@ -17,33 +17,36 @@ class Rain(start: android.graphics.PointF, end: android.graphics.PointF) : Weath
 
     override var TAG = "Rain"
 
-    var width = 10f
+    var width = 5f
     // 用户可以设置
-    var length = 10f
-    var timeSpace = 50
+    var length = 20f
+    var originLength = 20f
+        set(value) {
+            field = value
+            length = value
+        }
+
+    var originX = 0f
+    var translateX = 0f
+    var timeSpace = 16
 
     var rainAlpha = 100
     private var lastTime = 0L // 从开始到现在下落所经过的时间
-    var rainColor = Color.BLACK
-    override var time: Long = 2000L // 总共下落时间
+    var rainColor = Color.WHITE
+    override var time: Long = 5000 // 总共下落时间
 
     var paint = Paint().apply {
         color = rainColor
         strokeWidth = width
         isAntiAlias = true
         alpha = rainAlpha
-
     }
-
-    // 获取int类型的时间
-    fun getIntTime(): Int = (time / 1000).toInt()
-
 
     // 计算加速度
     override fun getAcceleration(): Float {
         val acc = context.getScreenHeight() / (time * time).toFloat()
 //        LogUtil.i(TAG, "acc = " + acc)
-        return acc
+        return 0f
     }
 
 
@@ -51,16 +54,17 @@ class Rain(start: android.graphics.PointF, end: android.graphics.PointF) : Weath
         // 计算公式： s = at^2
         if (!isInUse) {
             lastTime += randomDelay()
+            initStyle()
             isInUse = true
         }
-        LogUtil.i(TAG, "lastTime=$lastTime")
-        // 给上一个1px/s的初速度
-        val distance = (getAcceleration() * lastTime * lastTime + 0.5 * lastTime).toFloat()
+//        LogUtil.i(TAG, "lastTime=$lastTime")
+        // 给上一个 px/ms的初速度
+        val distance = (0.05 * lastTime).toFloat()
 //        LogUtil.i(TAG, "distance=$distance")
         start.y += distance
         end.y += distance
         canvas.drawLine(start.x, start.y, end.x, end.y, paint)
-//        LogUtil.i(TAG, "startrt=$start end=$end")
+        LogUtil.i(TAG, "start=$start end=$end")
         lastTime += timeSpace
         // 可以复用了
         if (end.y >= context.getScreenHeight()) {
@@ -85,8 +89,26 @@ class Rain(start: android.graphics.PointF, end: android.graphics.PointF) : Weath
     // 通过该方法来获取一个随机的初始化样式
     override fun initStyle() {
         val random = Random()
-//        val alpha =
+        // 获取随机透明值
+        rainAlpha = random.nextInt(55) + 100
+        // 获得起点x偏移
+        translateX = random.nextInt(10).toFloat() + 5
+        // 获得长度
+        length = random.nextInt(10).toFloat() + originLength
+        // 获得宽度 5 ~ 8
+        width = random.nextInt(3) + 5f
+        start.x = translateX + originX
+        end.x = translateX + originX
+        start.y = -length
+        end.y = 0f
+        paint.apply {
+            alpha = rainAlpha
+            strokeWidth = width
+            color = rainColor
+            isAntiAlias = true
+        }
     }
 
+    // TODO 1.随机刷新雨点，直到雨点数量达到40 2.随机刷新速度 0.05 ~ 0.07
 
 }

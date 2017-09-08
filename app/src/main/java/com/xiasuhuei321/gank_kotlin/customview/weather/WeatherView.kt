@@ -48,17 +48,20 @@ class WeatherView(context: Context, attributeSet: AttributeSet?, defaultStyle: I
                     }
                 }
             }
+            val startTime = System.currentTimeMillis()
             try {
                 // 正式开始表演
                 val canvas = holder.lockCanvas()
                 if (canvas != null) {
                     canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
-                    draw(canvas, type)
-//                    LogUtil.i(TAG, "不为空")
+                    draw(canvas, type, startTime)
                 }
                 holder.unlockCanvasAndPost(canvas)
-
-                Thread.sleep(50)
+                val drawTime = System.currentTimeMillis() - startTime
+                // 平均16ms一帧才能有顺畅的感觉
+                if (drawTime < 16) {
+                    Thread.sleep(16 - drawTime)
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -72,16 +75,12 @@ class WeatherView(context: Context, attributeSet: AttributeSet?, defaultStyle: I
     override fun surfaceDestroyed(holder: SurfaceHolder?) {
         // 在这里释放资源
         canRun = false
-        threadQuit = true
         LogUtil.i(TAG, "surfaceDestroyed")
     }
 
     override fun surfaceCreated(holder: SurfaceHolder?) {
         threadQuit = false
         canRun = true
-//        val lockCanvas = holder!!.lockCanvas()
-//        lockCanvas.drawLine(200f, 200f, 200f, 300f, paint)
-//        holder.unlockCanvasAndPost(lockCanvas)
         try {
             // 如果没有执行wait的话，这里notify会抛异常
             synchronized(lock) {
@@ -107,24 +106,16 @@ class WeatherView(context: Context, attributeSet: AttributeSet?, defaultStyle: I
         var currentSpace = 0f
         // 将其均匀的分布在屏幕x方向上
         while (i < 20) {
-            val rain = Rain(PointF(currentSpace, -30f), PointF(currentSpace, 0f))
-            rain.length = 30f
+            val rain = Rain(PointF(currentSpace, 0f), PointF(currentSpace, 0f))
+            rain.originLength = 20f
+            rain.originX = currentSpace
             rains.add(rain)
             currentSpace += space
             i++
         }
     }
 
-    val paint by lazy {
-        Paint().apply {
-            isAntiAlias = true
-            color = Color.BLACK
-            strokeWidth = 10f
-            style = Paint.Style.STROKE
-        }
-    }
-
-    private fun draw(canvas: Canvas, type: Weather) {
+    private fun draw(canvas: Canvas, type: Weather, startTime: Long) {
         // type什么的先放一边，先实现一个
         for (rain in rains) {
             rain.draw(canvas)
@@ -134,5 +125,9 @@ class WeatherView(context: Context, attributeSet: AttributeSet?, defaultStyle: I
     enum class Weather {
         RAIN,
         SNOW
+    }
+
+    fun onDestroy() {
+        threadQuit = true
     }
 }
