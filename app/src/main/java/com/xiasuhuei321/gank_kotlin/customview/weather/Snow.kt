@@ -1,7 +1,8 @@
 package com.xiasuhuei321.gank_kotlin.customview.weather
 
-import android.graphics.Canvas
-import android.graphics.PointF
+import android.graphics.*
+import com.xiasuhuei321.gank_kotlin.context
+import com.xiasuhuei321.gank_kotlin.extension.getScreenHeight
 import java.util.*
 
 /**
@@ -27,7 +28,13 @@ class Snow(start: PointF, end: PointF) : WeatherShape(start, end) {
 
     override fun drawWhenInUse(canvas: Canvas) {
         // 通过圆心与半径确定圆的位置及大小
+        val distance = speed * lastTime
+        center.y += distance
+        start.y += distance
+        end.y += distance
+        lastTime += 16
         canvas.drawCircle(center.x, center.y, radius, paint)
+        if (end.y > context.getScreenHeight()) clear()
     }
 
     fun calcCenter(): PointF {
@@ -38,6 +45,41 @@ class Snow(start: PointF, end: PointF) : WeatherShape(start, end) {
     }
 
     override fun randomSpeed(random: Random): Float {
-        return 0f
+        // 获取随机速度
+        var randomSpeed = random.nextFloat() / 10
+        if (randomSpeed - 0.04f > 0.01f) {
+            randomSpeed = 0.03f
+        } else if (randomSpeed < 0.01f) {
+            randomSpeed = 0.01f
+        }
+
+        return randomSpeed
+    }
+
+    override fun wtc(random: Random) {
+        // 设置颜色渐变
+        val shader = RadialGradient(center.x, center.y, radius,
+                Color.parseColor("#FFFFFF"), Color.parseColor("#D1D1D1"),
+                Shader.TileMode.CLAMP)
+        // 外部设置的起始点其实并不对，先计算出半径
+        radius = random.nextInt(10) + 15f
+        // 根据半径计算start end
+        end.x = start.x + radius
+        end.y = start.y + radius
+        // 计算圆心
+        calcCenter()
+
+        paint.apply {
+            setShader(shader)
+        }
+    }
+
+    fun clear() {
+        isInUse = false
+        lastTime = 0
+        start.y = -radius * 2
+        end.y = 0f
+
+        center = calcCenter()
     }
 }

@@ -111,19 +111,16 @@ abstract class WeatherShape(val start: PointF, val end: PointF) {
             isAntiAlias = true
         }
         // 如果有什么想要做的，刚好可以在追加上完成，就使用这个函数
-        wtc()
+        wtc(random)
     }
 
     /**
-     * 空实现的函数，将会在initStyle中调用。如果现有的
-     * initStyle函数能满足你的需求，但是你还需要追加一些
-     * 东西，你可以通过复写此函数实现
-     * empty body, this will be invoke in initStyle
-     * method.If current initStyle method can // 满足不会。。。
+     * Empty body, this will be invoke in initStyle
+     * method.If current initStyle method can satisfy your need
      * but you still add something, by override this method
-     * can be a good idea.
+     * will be a good idea to solve the problem.
      */
-    open fun wtc(): Unit {
+    open fun wtc(random:Random): Unit {
 
     }
 
