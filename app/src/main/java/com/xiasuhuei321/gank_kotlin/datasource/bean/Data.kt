@@ -16,3 +16,5 @@ data class GankData(var _id:String,
                     var url:String,
                     var used:Boolean,
                     var who:String)
+
+

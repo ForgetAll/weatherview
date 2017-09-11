@@ -1,9 +1,9 @@
 package com.xiasuhuei321.gank_kotlin.datasource
 
+import android.util.Log
 import com.xiasuhuei321.gank_kotlin.datasource.bean.PostType
-import com.xiasuhuei321.gank_kotlin.datasource.local.LocalDataImpl
 import com.xiasuhuei321.gank_kotlin.datasource.remote.RemoteDataImpl
-import com.xiasuhuei321.gank_kotlin.extension.LogUtil
+import com.xiasuhuei321.gank_kotlin.datasource.remote.RemoteDataSource
 import com.xiasuhuei321.gank_kotlin.extension.io_main
 
 /**
@@ -11,17 +11,19 @@ import com.xiasuhuei321.gank_kotlin.extension.io_main
  * author:luo
  * e-mail:xiasuhuei321@163.com
  */
- object DataSource {
-    val TAG: String = "DataSource"
-//    val server = RemoteDataImpl()
-    val local = LocalDataImpl()
+ class DataSource {
+    private val remote :RemoteDataSource
+
+    init {
+        remote = RemoteDataImpl()
+    }
 
     fun getRemoteData(){
-        RemoteDataImpl.INSTANCE
+        remote
                 .getRemoteData(PostType.ANDROID,10,1)
                 .io_main()
                 .subscribe({
-                    jsonResult-> LogUtil.d(jsonResult.toString())
+                    jsonResult-> Log.w("okhttp","content--->${jsonResult}")
                 },{
                     e-> e.printStackTrace()
                 })

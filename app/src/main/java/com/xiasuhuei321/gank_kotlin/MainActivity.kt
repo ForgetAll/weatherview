@@ -9,15 +9,22 @@ import com.xiasuhuei321.gank_kotlin.extension.shortToast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    val data = DataSource()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_main)
+
         weatherIv.setOnClickListener {
             shortToast("weather icon be clicked")
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        data.getRemoteData()
     }
 
     override fun onDestroy() {

@@ -13,7 +13,7 @@ import retrofit2.http.Path
  * author:luo
  * e-mail:xiasuhuei321@163.com
  */
-interface ApiStore {
+interface ApiService {
     /**
      * http://gank.io/api/data/数据类型/请求个数/第几页
      */
