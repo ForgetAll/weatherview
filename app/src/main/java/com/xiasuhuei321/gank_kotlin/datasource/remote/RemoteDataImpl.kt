@@ -1,8 +1,11 @@
 package com.xiasuhuei321.gank_kotlin.datasource.remote
 
-import com.xiasuhuei321.gank_kotlin.datasource.ApiStore
+import com.xiasuhuei321.gank_kotlin.datasource.net.ApiStore
+import com.xiasuhuei321.gank_kotlin.datasource.bean.GankData
+import com.xiasuhuei321.gank_kotlin.datasource.bean.JsonResult
 import com.xiasuhuei321.gank_kotlin.datasource.bean.TechBean
-import com.xiasuhuei321.gank_kotlin.datasource.net.RetrofitHelper
+import com.xiasuhuei321.gank_kotlin.datasource.net.ReHelper
+import com.xiasuhuei321.gank_kotlin.extension.io_main
 import io.reactivex.Observable
 
 
@@ -11,15 +14,20 @@ import io.reactivex.Observable
  * author:luo
  * e-mail:xiasuhuei321@163.com
  */
-class ServerDataImpl : ServerData {
+class RemoteDataImpl : RemoteDataSource {
 
-    val TAG: String = "ServerDataImpl"
-
-    var apiStore: ApiStore? = null
+    private var apiStore: ApiStore? = null
 
     init {
-        val retrofit = RetrofitHelper.getInstance()
-        apiStore = retrofit.create(ApiStore::class.java)
+        if (apiStore==null) ReHelper.getInstance().create(ApiStore::class.java)
+    }
+
+    companion object {
+       val INSTANCE: RemoteDataImpl by lazy { this.INSTANCE }
+    }
+
+    override fun getRemoteData(type: String, count: Int, pageIndex: Int): Observable<JsonResult<List<GankData>>> {
+        return apiStore!!.getCategoricalData(type,count.toString(),pageIndex.toString()).io_main()
     }
 
     override fun getRemoteTechBeanStaredList(type: String, count: Int, pageIndex: Int): Observable<TechBean> {
@@ -32,4 +40,5 @@ class ServerDataImpl : ServerData {
         val newPageIndex = pageIndex.toString()
         return apiStore!!.getData(type, newCount, newPageIndex)
     }
+
 }

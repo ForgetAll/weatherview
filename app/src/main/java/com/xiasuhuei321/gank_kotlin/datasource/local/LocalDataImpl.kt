@@ -5,5 +5,5 @@ package com.xiasuhuei321.gank_kotlin.datasource.local
  * author:luo
  * e-mail:xiasuhuei321@163.com
  */
-class LocalDataImpl : LocalData {
+class LocalDataImpl : LocalDataSource {
 }
