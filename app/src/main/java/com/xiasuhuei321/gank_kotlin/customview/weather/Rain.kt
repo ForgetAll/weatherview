@@ -2,11 +2,9 @@ package com.xiasuhuei321.gank_kotlin.customview.weather
 
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Paint
 import android.graphics.PointF
 import com.xiasuhuei321.gank_kotlin.context
 import com.xiasuhuei321.gank_kotlin.extension.getScreenHeight
-import com.xiasuhuei321.gank_kotlin.extension.getScreenWidth
 import java.util.*
 
 /**
@@ -20,7 +18,6 @@ class Rain(start: PointF, end: PointF) : WeatherShape(start, end) {
 
     override var TAG = "Rain"
 
-    var width = 5f
     // 用户可以设置
     var length = 20f
     var originLength = 20f
@@ -29,21 +26,13 @@ class Rain(start: PointF, end: PointF) : WeatherShape(start, end) {
             length = value
         }
 
-    var originX = 0f
     var translateX = 0f
     var timeSpace = 16
     //    var originSpeed = speed
     var rainAlpha = 100
-    private var lastTime = 0L // 从开始到现在下落所经过的时间
     var rainColor = Color.parseColor("#efefef")
 //    override var time: Long = 5000 // 总共下落时间
 
-    var paint = Paint().apply {
-        color = rainColor
-        strokeWidth = width
-        isAntiAlias = true
-        alpha = rainAlpha
-    }
 
     // 计算加速度
     override fun getAcceleration(): Float {
@@ -56,12 +45,7 @@ class Rain(start: PointF, end: PointF) : WeatherShape(start, end) {
     /**
      * 绘制过程在此完成
      */
-    override fun draw(canvas: Canvas) {
-        if (!isInUse) {
-            lastTime += randomPre()
-            initStyle()
-            isInUse = true
-        }
+    override fun drawWhenInUse(canvas: Canvas) {
         val distance = speed * lastTime
         start.y += distance
         end.y += distance
@@ -81,36 +65,59 @@ class Rain(start: PointF, end: PointF) : WeatherShape(start, end) {
         end.y = 0f
     }
 
-    /**
-     * @see WeatherShape
-     */
-    override fun randomPre(): Long {
+//    override fun initStyle(wtc: () -> Unit) {
+//        super.initStyle(wtc)
+//    }
+
+    override fun wtc() {
         val random = Random()
-        val pre = random.nextInt(1000).toLong()
-//        LogUtil.i("asdf", "random = $delay ")
-        return pre
+        length = random.nextInt(5).toFloat() + originLength
+        paint.apply {
+            color = rainColor
+        }
     }
 
+
     // 通过该方法来获取一个随机的初始化样式
-    override fun initStyle() {
-        val random = Random()
-        // 获取随机透明值
-        rainAlpha = random.nextInt(155) + 50
-        // 获得起点x偏移
-        translateX = random.nextInt(10).toFloat() + 5
-        // 获得长度
-        length = random.nextInt(5).toFloat() + originLength
-        // 获得宽度 5 ~ 8
-        width = random.nextInt(3) + 5f
-        if (!isRandom) {
-            start.x = translateX + originX
-            end.x = translateX + originX
-        } else {
-            // 如果是随机雨点，将x坐标随机范围扩大
-            val randomWidth = random.nextInt(context.getScreenWidth())
-            start.x = randomWidth + originX
-            end.x = randomWidth + originX
-        }
+//    override fun initStyle() {
+//        val random = Random()
+//        // 获取随机透明值
+//        rainAlpha = random.nextInt(155) + 50
+//        // 获得起点x偏移
+//        translateX = random.nextInt(10).toFloat() + 5
+//        // 获得长度
+//        length = random.nextInt(5).toFloat() + originLength
+//        // 获得宽度 5 ~ 8
+//        width = random.nextInt(3) + 5f
+//        if (!isRandom) {
+//            start.x = translateX + originX
+//            end.x = translateX + originX
+//        } else {
+//            // 如果是随机雨点，将x坐标随机范围扩大
+//            val randomWidth = random.nextInt(context.getScreenWidth())
+//            start.x = randomWidth + originX
+//            end.x = randomWidth + originX
+//        }
+//        start.y = -length
+//        end.y = 0f
+//        paint.apply {
+//            alpha = rainAlpha
+//            strokeWidth = width
+//            color = rainColor
+//            isAntiAlias = true
+//        }
+//        super.initStyle {
+//
+//        }
+//        val random = Random()
+//        length = random.nextInt(5).toFloat() + originLength
+//        paint.apply {
+//            color = rainColor
+//        }
+
+//    }
+
+    override fun randomSpeed(random: Random): Float {
         // 获取随机速度 0.02 ~ 0.06
         var randomSpeed = random.nextFloat() / 10
         if (randomSpeed - 0.05f > 0.01f) {
@@ -118,15 +125,8 @@ class Rain(start: PointF, end: PointF) : WeatherShape(start, end) {
         } else if (randomSpeed < 0.02f) {
             randomSpeed = 0.02f
         }
-        speed = randomSpeed
-        start.y = -length
-        end.y = 0f
-        paint.apply {
-            alpha = rainAlpha
-            strokeWidth = width
-            color = rainColor
-            isAntiAlias = true
-        }
+
+        return randomSpeed
     }
 
 

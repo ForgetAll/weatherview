@@ -16,9 +16,13 @@ import java.lang.Exception
  * author:luo
  * e-mail:xiasuhuei321@163.com
  */
-class WeatherView(context: Context, attributeSet: AttributeSet? = null, defaultStyle: Int = 0) :
+class WeatherView(context: Context, attributeSet: AttributeSet?, defaultStyle: Int) :
         SurfaceView(context, attributeSet, defaultStyle), SurfaceHolder.Callback {
     private val TAG = "WeatherView"
+
+    constructor(context: Context, attributeSet: AttributeSet?) : this(context, attributeSet, 0)
+
+    constructor(context: Context) : this(context, null, 0)
 
     // 低级并发，Kotlin中支持的不是很好，所以用一下黑科技
     val lock = Object()
@@ -85,6 +89,7 @@ class WeatherView(context: Context, attributeSet: AttributeSet? = null, defaultS
     }
 
     init {
+        LogUtil.i(TAG, "init开始")
         holder.addCallback(this)
         holder.setFormat(PixelFormat.RGBA_8888)
 //        initData()

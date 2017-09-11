@@ -160,7 +160,7 @@ int *blur_ARGB_8888(int *pix, int w, int h, int radius) {
         yi = x;
         stackpointer = radius;
         for (y = 0; y < h; y++) {
-            // Preserve alpha channel: ( 0xff000000 & pix[yi] )
+            // Preserve shapeAlpha channel: ( 0xff000000 & pix[yi] )
             pix[yi] = (0xff000000 & pix[yi]) | (dv[rsum] << 16) | (dv[gsum] << 8) | dv[bsum];
 
             rsum -= routsum;
