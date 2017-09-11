@@ -13,8 +13,6 @@ import io.reactivex.Observable
  */
 interface RemoteDataSource {
 
-    fun getRemoteTechBeanStaredList(type: String, count: Int, pageIndex: Int): Observable<TechBean>
-
     //获取分类数据
     fun getRemoteData(type:String, count: Int,pageIndex: Int):Observable<JsonResult<List<GankData>>>
 

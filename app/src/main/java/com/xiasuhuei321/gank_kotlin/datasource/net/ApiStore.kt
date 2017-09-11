@@ -22,7 +22,7 @@ interface ApiStore {
                 @Path("count") count: String,
                 @Path("pageIndex") pageIndex: String): Observable<TechBean>
 
-    @GET(API.DATA+"/{type}/{count}/{pageIndex}")
+    @GET("data/{type}/{count}/{pageIndex}")
     fun getCategoricalData(
             @Path("type") type:String,
             @Path("count") count: String,
