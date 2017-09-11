@@ -58,7 +58,7 @@ class WeatherView(context: Context, attributeSet: AttributeSet?, defaultStyle: I
                     Thread.sleep(16 - drawTime)
                 }
             } catch (e: Exception) {
-                e.printStackTrace()
+//                e.printStackTrace()
             }
         }
     }.apply { name = "WeatherThread" }
@@ -100,7 +100,7 @@ class WeatherView(context: Context, attributeSet: AttributeSet?, defaultStyle: I
 
     private fun draw(canvas: Canvas, type: Weather, startTime: Long) {
         // type什么的先放一边，先实现一个
-        weatherShapePool.drawRain(canvas)
+        weatherShapePool.drawSnow(canvas)
     }
 
     enum class Weather {

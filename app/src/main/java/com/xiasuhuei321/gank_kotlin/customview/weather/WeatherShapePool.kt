@@ -4,7 +4,6 @@ import android.graphics.Canvas
 import android.graphics.PointF
 import com.xiasuhuei321.gank_kotlin.context
 import com.xiasuhuei321.gank_kotlin.extension.getScreenWidth
-import java.util.*
 
 /**
  * Created by xiasuhuei321 on 2017/9/7.
@@ -15,9 +14,13 @@ class WeatherShapePool {
     val constantRain = ArrayList<Rain>()
     val randomRain = ArrayList<Rain>()
 
+    val constantSnow = ArrayList<Snow>()
+    val randomSnow = ArrayList<Snow>()
+
     init {
         // 初始化
         initData()
+        initSnow()
     }
 
     private fun initData() {
@@ -45,6 +48,36 @@ class WeatherShapePool {
             r.draw(canvas)
         }
         for (r in randomRain) {
+            r.draw(canvas)
+        }
+    }
+
+    private fun initSnow(){
+        val space = context.getScreenWidth() / 20
+        var currentSpace = 0f
+        // 将其均匀的分布在屏幕x方向上
+        for (i in 0..19) {
+            val snow = Snow(PointF(currentSpace, 0f), PointF(currentSpace, 0f))
+            snow.originX = currentSpace
+            snow.radius = 20f
+            constantSnow.add(snow)
+            currentSpace += space
+        }
+
+        for (j in 0..19) {
+            val snow = Snow(PointF(0f, 0f), PointF(0f, 0f))
+            snow.isRandom = true
+            snow.radius = 20f
+            randomSnow.add(snow)
+        }
+    }
+
+    fun drawSnow(canvas: Canvas){
+        for(r in constantSnow){
+            r.draw(canvas)
+        }
+
+        for (r in randomSnow){
             r.draw(canvas)
         }
     }
