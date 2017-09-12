@@ -11,7 +11,7 @@ import io.reactivex.Observable
  * author:luo
  * e-mail:xiasuhuei321@163.com
  */
-class RemoteDataImpl :RemoteDataSource {
+class RemoteDataSourceImpl :RemoteDataSource {
 
     override fun getRemoteData(type: String, count: Int, pageIndex: Int):
             Observable<JsonResult<List<GankData>>> {

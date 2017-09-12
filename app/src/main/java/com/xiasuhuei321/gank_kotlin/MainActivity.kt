@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Window
 import android.view.WindowManager
-import com.xiasuhuei321.gank_kotlin.datasource.DataSource
+import com.xiasuhuei321.gank_kotlin.datasource.DataSourceImpl
 import com.xiasuhuei321.gank_kotlin.extension.shortToast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    val data = DataSource()
+    val data = DataSourceImpl()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        data.getRemoteData()
     }
 
     override fun onDestroy() {
