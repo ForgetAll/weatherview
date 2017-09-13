@@ -18,11 +18,3 @@ import java.util.function.Function
 fun <T> Observable<T>.io_main():Observable<T>{
     return subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 }
-//
-//fun <T>Observable<T>.handleResult():ObservableTransformer<JsonResult<T>,T>{
-//    return ObservableTransformer<JsonResult<T>,T>{
-//        apply {
-//
-//        }
-//    }
-//}
