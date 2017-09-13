@@ -11,12 +11,12 @@ import java.util.*
  * e-mail:xiasuhuei321@163.com
  */
 class Snow(start: PointF, end: PointF) : WeatherShape(start, end) {
+    override var TAG = "Snow"
 
     /**
      * 圆心，用户可以改变这个值
      */
-    var center = calcCenter()
-
+    var center = PointF(0f, 0f)
     /**
      * 半径
      */
@@ -37,23 +37,14 @@ class Snow(start: PointF, end: PointF) : WeatherShape(start, end) {
         if (end.y > context.getScreenHeight()) clear()
     }
 
-    fun calcCenter(): PointF {
-        val center = PointF(0f, 0f)
+    fun calcCenter() {
         center.x = (start.x + end.x) / 2f
         center.y = (start.y + end.y) / 2f
-        return center
     }
 
     override fun randomSpeed(random: Random): Float {
-        // 获取随机速度
-        var randomSpeed = random.nextFloat() / 10
-        if (randomSpeed - 0.04f > 0.01f) {
-            randomSpeed = 0.03f
-        } else if (randomSpeed < 0.01f) {
-            randomSpeed = 0.01f
-        }
-
-        return randomSpeed
+        // 获取随机速度0.005 ~ 0.01
+        return (random.nextInt(5) + 5) / 1000f
     }
 
     override fun wtc(random: Random) {
@@ -80,6 +71,6 @@ class Snow(start: PointF, end: PointF) : WeatherShape(start, end) {
         start.y = -radius * 2
         end.y = 0f
 
-        center = calcCenter()
+        calcCenter()
     }
 }

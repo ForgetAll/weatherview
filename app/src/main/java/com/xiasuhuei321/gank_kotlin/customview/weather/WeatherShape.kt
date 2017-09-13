@@ -120,7 +120,7 @@ abstract class WeatherShape(val start: PointF, val end: PointF) {
      * but you still add something, by override this method
      * will be a good idea to solve the problem.
      */
-    open fun wtc(random:Random): Unit {
+    open fun wtc(random: Random): Unit {
 
     }
 
@@ -135,4 +135,3 @@ abstract class WeatherShape(val start: PointF, val end: PointF) {
         return pre
     }
 }
-// TODO 待验证重构之后的代码的正确性
