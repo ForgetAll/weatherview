@@ -1,6 +1,12 @@
 # GankKotlin
 A practice for kotlin, use gank.io's data.
 
+Now the app is under development, here are some pictures for preview.
+
+![rain](./screenshot/rain.gif)
+
+![snow](./screenshot/snow.gif)
+
 # License
 ```
    Copyright 2017 ForgetAll
@@ -16,4 +22,5 @@ A practice for kotlin, use gank.io's data.
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-   ```
+   
+```
