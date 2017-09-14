@@ -1,6 +1,5 @@
 package com.xiasuhuei321.gank_kotlin.datasource.net
 
-import com.xiasuhuei321.gank_kotlin.datasource.bean.API
 import com.xiasuhuei321.gank_kotlin.datasource.bean.GankData
 import com.xiasuhuei321.gank_kotlin.datasource.bean.JsonResult
 import com.xiasuhuei321.gank_kotlin.datasource.bean.TechBean
@@ -24,7 +23,7 @@ interface ApiService {
 
     @GET("data/{type}/{count}/{pageIndex}")
     fun getCategoricalData(
-            @Path("type") type:String,
+            @Path("type") type: String,
             @Path("count") count: String,
             @Path("pageIndex") pageIndex: String
     ): Observable<JsonResult<List<GankData>>>

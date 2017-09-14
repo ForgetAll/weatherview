@@ -52,7 +52,7 @@ class WeatherShapePool {
         }
     }
 
-    private fun initSnow(){
+    private fun initSnow() {
         val space = context.getScreenWidth() / 20
         var currentSpace = 0f
         // 将其均匀的分布在屏幕x方向上
@@ -72,12 +72,12 @@ class WeatherShapePool {
         }
     }
 
-    fun drawSnow(canvas: Canvas){
-        for(r in constantSnow){
+    fun drawSnow(canvas: Canvas) {
+        for (r in constantSnow) {
             r.draw(canvas)
         }
 
-        for (r in randomSnow){
+        for (r in randomSnow) {
             r.draw(canvas)
         }
     }

@@ -23,7 +23,7 @@ import kotlin.collections.ArrayList
  * e-mail:xiasuhuei321@163.com
  */
 
-fun LocalDataSource.saveCity(dbName: String, jsonStr: String, observer: FlowableSubscriber<Boolean>) {
+fun LocalDataSource.saveCity(dbName: String, jsonStr: String, observer: FlowableSubscriber<HashMap<String, List<Town>>>) {
     val cityArray = JSONArray(jsonStr)
     val dbHelper = WeatherDBHelper(context, dbName, null, 1)
     val db = dbHelper.writableDatabase
@@ -34,7 +34,7 @@ fun LocalDataSource.saveCity(dbName: String, jsonStr: String, observer: Flowable
     Flowable.just(cityArray)
             .concatMap {
                 i ->
-                Publisher<Boolean> {
+                Publisher<HashMap<String, List<Town>>> {
                     j ->
                     (0..(i.length() - 1)).map { i.getJSONObject(it) }.forEach {
                         // 这里存在重复插入的问题
@@ -56,6 +56,7 @@ fun LocalDataSource.saveCity(dbName: String, jsonStr: String, observer: Flowable
                                 town.townEn, db)
                         townList.add(town)
                     }
+                    j.onNext(map)
                     j.onComplete()
                 }
             }.io_main()

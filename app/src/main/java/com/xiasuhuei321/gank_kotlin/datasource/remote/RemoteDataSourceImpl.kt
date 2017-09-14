@@ -11,13 +11,13 @@ import io.reactivex.Observable
  * author:luo
  * e-mail:xiasuhuei321@163.com
  */
-class RemoteDataSourceImpl :RemoteDataSource {
+class RemoteDataSourceImpl : RemoteDataSource {
 
     override fun getRemoteData(type: String, count: Int, pageIndex: Int):
             Observable<JsonResult<List<GankData>>> {
 
         return Network.service
-                .getCategoricalData(type,count = count.toString(),pageIndex = pageIndex.toString())
+                .getCategoricalData(type, count = count.toString(), pageIndex = pageIndex.toString())
 
     }
 

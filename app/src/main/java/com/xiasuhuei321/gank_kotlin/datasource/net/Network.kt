@@ -16,13 +16,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object Network {
 
-    private val retrofit:Retrofit
-    private val okHttpClient:OkHttpClient
+    private val retrofit: Retrofit
+    private val okHttpClient: OkHttpClient
 
     init {
-        val logging = Interceptor{chain ->
+        val logging = Interceptor { chain ->
             val request = chain.request()
-            Log.w("okhttp","okhttp--->"+request.url().toString())
+            Log.w("okhttp", "okhttp--->" + request.url().toString())
             chain.proceed(request)
         }
 
@@ -40,7 +40,7 @@ object Network {
 
     }
 
-    val service:ApiService by lazy { retrofit.create(ApiService::class.java) }
+    val service: ApiService by lazy { retrofit.create(ApiService::class.java) }
 
 }
 

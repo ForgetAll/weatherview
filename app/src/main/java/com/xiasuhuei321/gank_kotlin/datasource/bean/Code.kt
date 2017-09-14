@@ -9,7 +9,7 @@ package com.xiasuhuei321.gank_kotlin.datasource.bean
 /**
  * 请求API
  */
-object API{
+object API {
 
     const val BASE_PATH = "http://gank.io/api/"
     //搜索API
@@ -33,7 +33,7 @@ object API{
 /**
  * 请求类型
  */
-object PostType{
+object PostType {
 
     // 福利 | Android | iOS | 休息视频 | 拓展资源 | 前端 | all
 
@@ -50,7 +50,7 @@ object PostType{
 /**
  * 请求响应代码
  */
-object ResponseCode{
+object ResponseCode {
     /**
      * 加载成功
      */

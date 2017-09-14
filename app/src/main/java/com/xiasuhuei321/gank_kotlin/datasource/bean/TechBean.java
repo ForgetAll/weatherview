@@ -165,7 +165,7 @@ public class TechBean implements Serializable {
         public boolean equals(Object obj) {
             if (!(obj instanceof ResultsBean))
                 return false;
-            if(((ResultsBean)obj).get_id().equals(this.get_id()))
+            if (((ResultsBean) obj).get_id().equals(this.get_id()))
                 return true;
             return false;
         }

@@ -4,7 +4,7 @@ package com.xiasuhuei321.gank_kotlin.datasource.code
  * Created by Karl on 2017/9/7 0007.
  * desc:网络请求错误代码
  */
-object ErrorCode{
+object ErrorCode {
 
     /**
      * 加载成功
