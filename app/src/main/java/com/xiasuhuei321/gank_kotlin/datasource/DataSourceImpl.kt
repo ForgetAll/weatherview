@@ -1,12 +1,18 @@
 package com.xiasuhuei321.gank_kotlin.datasource
 
+import android.util.Log
+import com.xiasuhuei321.gank_kotlin.app
 import com.xiasuhuei321.gank_kotlin.datasource.bean.GankData
+import com.xiasuhuei321.gank_kotlin.datasource.bean.JsonResult
 import com.xiasuhuei321.gank_kotlin.datasource.bean.Weather
 import com.xiasuhuei321.gank_kotlin.datasource.local.LocalDataSource
 import com.xiasuhuei321.gank_kotlin.datasource.local.LocalDataSourceImpl
 import com.xiasuhuei321.gank_kotlin.datasource.remote.RemoteDataSource
 import com.xiasuhuei321.gank_kotlin.datasource.remote.RemoteDataSourceImpl
+import com.xiasuhuei321.gank_kotlin.extension.handleResult
+import com.xiasuhuei321.gank_kotlin.extension.io_main
 import io.reactivex.Observable
+import io.reactivex.functions.Function
 
 /**
  * Created by coderFan on 2017/8/11.
@@ -32,11 +38,14 @@ object DataSourceImpl : DataSource {
     }
 
     override fun getData(type: String): Observable<List<GankData>> {
-        TODO("获取数据，进行网络请求,加载失败再从本地读取缓存")
+        return getRemoteData(type,10,1)
     }
 
-    override fun getRemoteData(type: String, pageIndex: Int, count: Int): Observable<List<GankData>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getRemoteData(type: String, count: Int, pageIndex: Int): Observable<List<GankData>> {
+        return remote
+                .getRemoteData(type,10,1)
+                .compose(handleResult())
+                .io_main()
     }
 
     /**

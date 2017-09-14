@@ -11,7 +11,7 @@ import com.xiasuhuei321.gank_kotlin.datasource.bean.Weather
  */
 class WeatherPresenter(override var v: BaseContract.View?) : WeatherContract.Presenter{
     override fun getWeather(): Weather {
-        DataSourceImpl
+//        DataSourceImpl
         return Weather()
     }
 
