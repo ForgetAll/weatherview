@@ -1,11 +1,9 @@
 package com.xiasuhuei321.gank_kotlin.extension
 
-import com.xiasuhuei321.gank_kotlin.datasource.bean.JsonResult
+import io.reactivex.Flowable
 import io.reactivex.Observable
-import io.reactivex.ObservableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.util.function.Function
 
 /**
  * Created by Karl on 2017/9/7 0007.
@@ -15,6 +13,10 @@ import java.util.function.Function
 /**
  * RxJava 线程切换
  */
-fun <T> Observable<T>.io_main():Observable<T>{
+fun <T> Observable<T>.io_main(): Observable<T> {
+    return subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+}
+
+fun <T> Flowable<T>.io_main(): Flowable<T> {
     return subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 }

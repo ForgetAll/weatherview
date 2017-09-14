@@ -19,6 +19,7 @@ class GankApplication : Application() {
 
 }
 
+
 val Any.context: Context
     get() = GankApplication.mContext!!
 

@@ -1,6 +1,7 @@
 package com.xiasuhuei321.gank_kotlin.datasource.local
 
 import com.xiasuhuei321.gank_kotlin.datasource.bean.GankData
+import com.xiasuhuei321.gank_kotlin.datasource.bean.Town
 import io.reactivex.Observable
 
 /**
@@ -10,5 +11,7 @@ import io.reactivex.Observable
 interface LocalDataSource {
 
     //本地缓存
-    fun getRemoteData(type:String):Observable<List<GankData>>
+    fun getLocalData(type: String): Observable<List<GankData>>
+
+    fun json2DB(): Map<String, List<Town>>
 }

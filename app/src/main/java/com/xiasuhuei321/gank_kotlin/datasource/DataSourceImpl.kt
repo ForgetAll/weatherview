@@ -12,7 +12,7 @@ import io.reactivex.Observable
  * author:karl
  * e-mail:fgeekey2014@163.com
  */
- class DataSourceImpl :DataSource {
+ object DataSourceImpl :DataSource {
 
     private val remote :RemoteDataSource
 
@@ -21,6 +21,13 @@ import io.reactivex.Observable
     init {
         remote = RemoteDataSourceImpl()
         local = LocalDataSourceImpl()
+    }
+
+    /**
+     * 初次打开app需要进行一些初始化操作
+     */
+    public fun firstInit(){
+
     }
 
     override fun getData(type: String):Observable<List<GankData>>{
@@ -42,7 +49,7 @@ import io.reactivex.Observable
      * 清除本地所有缓存
      */
     override fun clearAllData(){
-        TODO("清除本地所有缓存数据")
+//        TODO("清除本地所有缓存数据")
     }
 
 
@@ -51,14 +58,13 @@ import io.reactivex.Observable
      */
     private fun getLocalData(type: String) : Observable<List<GankData>>{
         TODO("获取本地的缓存数据")
-
     }
 
     /**
      * 刷新本地序列化存储数据
      */
     private fun refreshLocalData(type: String){
-        TODO("序列化存储指定数据到本地")
+//        TODO("序列化存储指定数据到本地")
     }
 
 }
