@@ -13,5 +13,11 @@ interface LocalDataSource {
     //本地缓存
     fun getLocalData(type: String): Observable<List<GankData>>
 
+    fun <T> refreshLocalData(type: String,list: Collection<T>)
+
+    fun clearLocalData(type: String)
+
+    fun clearAllData()
+
     fun json2DB(): Map<String, List<Town>>
 }

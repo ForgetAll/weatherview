@@ -76,3 +76,10 @@ object ResponseCode {
      */
     val SEVER_ERROR = 500
 }
+
+object CacheValues{
+
+    val SP_CONFIG_NAME = "GankKotlin"
+
+    val FILE_NAME = "GankFile"
+}

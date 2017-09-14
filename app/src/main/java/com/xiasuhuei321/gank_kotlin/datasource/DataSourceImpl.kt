@@ -1,9 +1,6 @@
 package com.xiasuhuei321.gank_kotlin.datasource
 
-import android.util.Log
-import com.xiasuhuei321.gank_kotlin.app
 import com.xiasuhuei321.gank_kotlin.datasource.bean.GankData
-import com.xiasuhuei321.gank_kotlin.datasource.bean.JsonResult
 import com.xiasuhuei321.gank_kotlin.datasource.bean.Weather
 import com.xiasuhuei321.gank_kotlin.datasource.local.LocalDataSource
 import com.xiasuhuei321.gank_kotlin.datasource.local.LocalDataSourceImpl
@@ -12,7 +9,6 @@ import com.xiasuhuei321.gank_kotlin.datasource.remote.RemoteDataSourceImpl
 import com.xiasuhuei321.gank_kotlin.extension.handleResult
 import com.xiasuhuei321.gank_kotlin.extension.io_main
 import io.reactivex.Observable
-import io.reactivex.functions.Function
 
 /**
  * Created by coderFan on 2017/8/11.
@@ -37,14 +33,22 @@ object DataSourceImpl : DataSource {
 
     }
 
-    override fun getData(type: String): Observable<List<GankData>> {
-        return getRemoteData(type,10,1)
+    override fun getRemoteData(type: String): Observable<List<GankData>> {
+        return getRemoteData(type, 10, 1)
+    }
+
+    override fun getRemoteData(type: String, pageIndex: Int): Observable<List<GankData>> {
+        return getRemoteData(type, 10, pageIndex)
     }
 
     override fun getRemoteData(type: String, count: Int, pageIndex: Int): Observable<List<GankData>> {
         return remote
-                .getRemoteData(type,10,1)
+                .getRemoteData(type, 10, 1)
                 .compose(handleResult())
+                .doOnNext({ list ->
+                            if (pageIndex == 1) refreshLocalData(type, list)//只有当加载第一页数据的时候才缓存
+                        }
+                )
                 .io_main()
     }
 
@@ -52,14 +56,14 @@ object DataSourceImpl : DataSource {
      * 清除本地指定缓存
      */
     override fun clearData(type: String) {
-        TODO("清除本地指定缓存数据")
+        local.clearLocalData(type)
     }
 
     /**
      * 清除本地所有缓存
      */
     override fun clearAllData() {
-//        TODO("清除本地所有缓存数据")
+        local.clearAllData()
     }
 
 
@@ -67,14 +71,14 @@ object DataSourceImpl : DataSource {
      * 优先从本地获取数据
      */
     private fun getLocalData(type: String): Observable<List<GankData>> {
-        TODO("获取本地的缓存数据")
+        return local.getLocalData(type)
     }
 
     /**
      * 刷新本地序列化存储数据
      */
-    private fun refreshLocalData(type: String) {
-//        TODO("序列化存储指定数据到本地")
+    private fun <T> refreshLocalData(type: String, list: Collection<T>) {
+        local.refreshLocalData(type,list)
     }
 
     /**
