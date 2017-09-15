@@ -1,5 +1,6 @@
 package com.xiasuhuei321.gank_kotlin.extension
 
+import android.util.ArrayMap
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
