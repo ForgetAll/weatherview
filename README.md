@@ -1,7 +1,7 @@
 # GankKotlin
 A practice for kotlin, use gank.io's data.
 
-Now the app is under development, here are some pictures for preview.The native code in this project use CMake build system.
+Now the app is under development, here are some pictures for preview.The native code built by CMake.
 
 ![rain](./screenshot/rain.gif)
 
