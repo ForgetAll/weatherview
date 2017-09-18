@@ -27,7 +27,11 @@ fun <T> jsonToList(json:String):ArrayList<T>{
     val type = object:TypeToken<ArrayList<T>>(){}
     return GsonBuilder().create().fromJson<ArrayList<T>>(json,type.type)
 }
-fun <K,T> jsonToMap(json: String):Map<K,T>{
-    val type = object : TypeToken<Map<K,T>>(){}
-    return GsonBuilder().create().fromJson(json,type.type)
+
+/**
+ * 内联函数
+ */
+inline fun <reified T:Any> json2List(json:String):MutableList<T>{
+    val subType = TypeToken.getParameterized(MutableList::class.java,T::class.java)
+    return GsonBuilder().create().fromJson(json,subType.type)
 }
