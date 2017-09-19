@@ -4,10 +4,7 @@ import android.os.Environment
 import com.xiasuhuei321.gank_kotlin.GankApplication
 import com.xiasuhuei321.gank_kotlin.context
 import com.xiasuhuei321.gank_kotlin.datasource.bean.CacheValues
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.ObjectOutputStream
+import java.io.*
 
 /**
  * Created by CoderFan on 2017/9/15.
@@ -17,23 +14,13 @@ import java.io.ObjectOutputStream
 /**
  * 序列化对象
  */
+
 @Throws(IOException::class)
-fun <T> setSerializable(t: T) {
-//    if (checkDir()){
-//        val oos:ObjectOutputStream
-//        try {
-//            val file = File(Environment.getExternalStorageDirectory(),CacheValues.FILE_NAME)
-//            if (!file.exists())file.createNewFile()
-//            val fos = FileOutputStream(file)
-//
-//            oos.writeObject(t)
-//        }catch (e:IOException){
-//            e.printStackTrace()
-//        }finally {
-//            oos.close()
-//        }
-//    }
+fun <T> serialize(t: T) {
+
 }
+
+
 
 /**
  * 外部存储路径检查
