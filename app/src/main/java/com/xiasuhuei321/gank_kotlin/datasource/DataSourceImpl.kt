@@ -19,7 +19,7 @@ object DataSourceImpl : DataSource {
 
     private val remote: RemoteDataSource
 
-    private val local: LocalDataSource
+    private val local: LocalDataSource<GankData>
 
     init {
         remote = RemoteDataSourceImpl()
@@ -71,13 +71,13 @@ object DataSourceImpl : DataSource {
      * 优先从本地获取数据
      */
     private fun getLocalData(type: String): Observable<List<GankData>> {
-        return local.getLocalData(type)
+        return Observable.just(local.getLocalData(type))
     }
 
     /**
      * 刷新本地序列化存储数据
      */
-    private fun <T> refreshLocalData(type: String, list: Collection<T>) {
+    private fun refreshLocalData(type: String, list: List<GankData>) {
         local.refreshLocalData(type,list)
     }
 

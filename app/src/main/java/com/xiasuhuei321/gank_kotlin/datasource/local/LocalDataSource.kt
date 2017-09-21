@@ -8,12 +8,12 @@ import io.reactivex.Observable
  * Created by coderfan on 2017/8/11.
  * desc:
  */
-interface LocalDataSource {
+interface LocalDataSource<T> {
 
     //本地缓存
-    fun getLocalData(type: String): Observable<List<GankData>>
+    fun getLocalData(type: String): List<T>
 
-    fun <T> refreshLocalData(type: String,list: Collection<T>)
+    fun refreshLocalData(type: String,list: List<T>)
 
     fun clearLocalData(type: String)
 

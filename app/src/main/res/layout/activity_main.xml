@@ -6,6 +6,8 @@
     tools:context="com.xiasuhuei321.gank_kotlin.MainActivity">
 
 
+
+
     <com.xiasuhuei321.gank_kotlin.customview.weather.WeatherView
         android:id="@+id/weatherWv"
         android:layout_width="match_parent"

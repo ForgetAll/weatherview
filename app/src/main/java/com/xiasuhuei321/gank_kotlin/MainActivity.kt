@@ -26,20 +26,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        DataSourceImpl
-                .getData(PostType.ANDROID)
-                .subscribe(
-                        {
-                            list->Log.e("RPG","list ---> " + list)
-                        },
-                        {
-                            e->e.printStackTrace()
-                        }
-                )
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         weatherWv.onDestroy()

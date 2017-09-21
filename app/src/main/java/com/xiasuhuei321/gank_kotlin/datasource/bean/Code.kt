@@ -81,5 +81,7 @@ object CacheValues{
 
     val SP_CONFIG_NAME = "GankKotlin"
 
-    val FILE_NAME = "GankFile"
+    val DEFAULT_FILE_NAME = "GankFile"
+
+    val DEFAULT_FILE_COUNT = "GankFileCount"//统计本地存储的文件
 }
