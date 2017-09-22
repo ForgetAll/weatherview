@@ -49,7 +49,7 @@ class WeatherView(context: Context, attributeSet: AttributeSet?, defaultStyle: I
                 val canvas = holder.lockCanvas()
                 if (canvas != null) {
                     canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
-                    draw(canvas, type, startTime)
+                    draw(canvas, type)
                 }
                 holder.unlockCanvasAndPost(canvas)
                 val drawTime = System.currentTimeMillis() - startTime
@@ -98,9 +98,15 @@ class WeatherView(context: Context, attributeSet: AttributeSet?, defaultStyle: I
         thread.start()
     }
 
-    private fun draw(canvas: Canvas, type: Weather, startTime: Long) {
-        // type什么的先放一边，先实现一个
-        weatherShapePool.drawSnow(canvas)
+    private fun draw(canvas: Canvas, type: Weather) {
+        when (type) {
+            Weather.RAIN -> {
+                weatherShapePool.drawRain(canvas)
+            }
+            Weather.SNOW -> {
+                weatherShapePool.drawSnow(canvas)
+            }
+        }
     }
 
     enum class Weather {
