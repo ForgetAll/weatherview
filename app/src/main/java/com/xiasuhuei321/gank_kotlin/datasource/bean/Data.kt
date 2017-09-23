@@ -5,17 +5,19 @@ package com.xiasuhuei321.gank_kotlin.datasource.bean
  * desc:数据
  */
 
-data class JsonResult<T>(var error: Boolean, var results: T)
+data class JsonResult<T>(val error: Boolean, val results: T)
 
-data class GankData(var _id: String,
-                    var createAt: String,
-                    var desc: String,
-                    var publishedAt: String,
-                    var source: String,
-                    var type: String,
-                    var url: String,
-                    var used: Boolean,
-                    var who: String)
+data class GankData(val _id: String,
+                    val createAt: String,
+                    val desc: String,
+                    val publishedAt: String,
+                    val source: String,
+                    val type: String,
+                    val url: String,
+                    val used: Boolean,
+                    val who: String){
+    fun create() = createAt.substring(0,10)
+}
 
 
 data class City(val cityName: String,

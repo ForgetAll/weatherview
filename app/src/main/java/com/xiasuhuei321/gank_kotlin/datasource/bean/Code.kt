@@ -76,3 +76,12 @@ object ResponseCode {
      */
     val SEVER_ERROR = 500
 }
+
+object CacheValues{
+
+    val SP_CONFIG_NAME = "GankKotlin"
+
+    val DEFAULT_FILE_NAME = "GankFile"
+
+    val DEFAULT_FILE_COUNT = "GankFileCount"//统计本地存储的文件
+}
