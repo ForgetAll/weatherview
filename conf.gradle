@@ -1,4 +1,8 @@
 ext {
+    // 这个标志位决定了部分Library是否可运行
+    // 处于false的时候，部分组件就是一个单独
+    // 可运行的Module
+    isLibrary = true
     android = [
             compileSdkVersion: 25,
             buildToolsVersion: "26.0.0",

@@ -65,7 +65,7 @@ class WeatherView(context: Context, attributeSet: AttributeSet?, defaultStyle: I
 
     override fun surfaceChanged(holder: SurfaceHolder?, format: Int, width: Int, height: Int) {
         // surface发生了变化
-//        canRun = true
+        canRun = true
 
     }
 
@@ -91,7 +91,7 @@ class WeatherView(context: Context, attributeSet: AttributeSet?, defaultStyle: I
     init {
         LogUtil.i(TAG, "init开始")
         holder.addCallback(this)
-        holder.setFormat(PixelFormat.RGBA_8888)
+        holder.setFormat(PixelFormat.TRANSLUCENT)
 //        initData()
         setZOrderOnTop(true)
 //        setZOrderMediaOverlay(true)
