@@ -4,19 +4,16 @@
     android:layout_height="match_parent"
     android:visibility="visible">
 
-    <FrameLayout
-        android:id="@+id/containerFl"
+    <com.xiasuhuei321.gank_kotlin.customview.weather.WeatherView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </FrameLayout>
+        android:layout_height="match_parent"
+        android:id="@+id/weatherWv"/>
 
 
     <RelativeLayout
         android:id="@+id/rl_test"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#6699cc"
         android:visibility="visible">
 
         <LinearLayout

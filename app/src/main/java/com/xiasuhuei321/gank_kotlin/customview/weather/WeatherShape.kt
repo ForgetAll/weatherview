@@ -70,6 +70,7 @@ abstract class WeatherShape(val start: PointF, val end: PointF) {
      * 绘制自身，这里在Shape是非使用的时候进行一些初始化操作
      */
     open fun draw(canvas: Canvas) {
+//        canvas.drawColor(context.resources.getColor(R.color.sky_blue),PorterDuff.Mode.DST_ATOP)
         if (!isInUse) {
             lastTime += randomPre()
             initStyle()

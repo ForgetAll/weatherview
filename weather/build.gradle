@@ -1,4 +1,4 @@
-if (!isLibrary.toBoolean()) {
+if (!isLibrary) {
     apply plugin: 'com.android.application'
 } else {
     apply plugin: 'com.android.library'
@@ -10,7 +10,7 @@ android {
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
 
     defaultConfig {
-        if (!isLibrary.toBoolean()) {
+        if (!isLibrary) {
             applicationId "com.xiasuhuei321.weather"
         }
         minSdkVersion rootProject.ext.android["minSdkVersion"]
@@ -30,7 +30,7 @@ android {
 
     sourceSets {
         main {
-            if (isLibrary.toBoolean()) {
+            if (isLibrary) {
                 manifest.srcFile 'src/main/AndroidManifest.xml'
             } else {
                 manifest.srcFile 'src/main/module/AndroidManifest.xml'

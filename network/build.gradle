@@ -1,23 +1,24 @@
-apply plugin: 'com.android.application'
-apply plugin: 'android-apt'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+if (!isLibrary) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
+
+
 
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
     defaultConfig {
-        applicationId rootProject.ext.android["applicationId"]
+        if (!isLibrary) {
+            applicationId "com.xiasuhuei321.network"
+        }
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode rootProject.ext.android["versionCode"]
         versionName rootProject.ext.android["versionName"]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        externalNativeBuild {
-            cmake {
-                cppFlags ""
-            }
-        }
+
     }
     buildTypes {
         release {
@@ -25,9 +26,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    externalNativeBuild {
-        cmake {
-            path "CMakeLists.txt"
+
+    sourceSets {
+        main {
+            if (isLibrary) {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/module/AndroidManifest.xml'
+            }
         }
     }
 }
@@ -37,26 +43,20 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    compile 'com.android.support:appcompat-v7:25.3.1'
+
+    compile 'com.android.support:appcompat-v7:26.+'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
     compile rootProject.ext.dependencies["retrofit"]
     compile rootProject.ext.dependencies["rxjava2"]
     compile rootProject.ext.dependencies["rxandroid"]
     compile rootProject.ext.dependencies["gson"]
     compile rootProject.ext.dependencies["retrofit_rxjava"]
     compile rootProject.ext.dependencies["retrofit_gson"]
-    compile rootProject.ext.dependencies["glide"]
-    annotationProcessor rootProject.ext.dependencies["glide_compiler"]
-    compile rootProject.ext.dependencies["butterknife"]
-    compile rootProject.ext.dependencies["eventbus"]
-    compile rootProject.ext.dependencies["bugly_sdk"]
-    compile rootProject.ext.dependencies["bugly_ndk"]
-    compile rootProject.ext.dependencies["supertextview"]
-    compile rootProject.ext.dependencies["anko"]
-    compile rootProject.ext.dependencies["log_interceptor"]
-    if(isLibrary){
-        compile project(':weather')
-    }
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}
+apply plugin: 'kotlin-android'
+repositories {
+    mavenCentral()
 }

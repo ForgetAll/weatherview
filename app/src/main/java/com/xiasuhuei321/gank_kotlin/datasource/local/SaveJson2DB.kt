@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.database.sqlite.SQLiteQuery
 import com.xiasuhuei321.gank_kotlin.context
+import com.xiasuhuei321.gank_kotlin.datasource.bean.GankData
 import com.xiasuhuei321.gank_kotlin.datasource.bean.Town
 import com.xiasuhuei321.gank_kotlin.extension.io_main
 import io.reactivex.Flowable
@@ -23,7 +24,7 @@ import kotlin.collections.ArrayList
  * e-mail:xiasuhuei321@163.com
  */
 
-fun LocalDataSource.saveCity(dbName: String, jsonStr: String, observer: FlowableSubscriber<HashMap<String, List<Town>>>) {
+fun LocalDataSource<GankData>.saveCity(dbName: String, jsonStr: String, observer: FlowableSubscriber<HashMap<String, List<Town>>>) {
     val cityArray = JSONArray(jsonStr)
     val dbHelper = WeatherDBHelper(context, dbName, null, 1)
     val db = dbHelper.writableDatabase
@@ -42,7 +43,7 @@ fun LocalDataSource.saveCity(dbName: String, jsonStr: String, observer: Flowable
                         if (map[cityName] == null) {
                             // 说明还不存在
                             dbHelper.insertIntoCity(cityName,
-                                    it.optString(WeatherDBHelper.cityEN), db)
+                                    it.optString(WeatherDBHelper.cityEN))
                             townList = ArrayList<Town>()
                             map.put(cityName, townList)
                         }
@@ -53,7 +54,7 @@ fun LocalDataSource.saveCity(dbName: String, jsonStr: String, observer: Flowable
                         dbHelper.insertIntoTown(cityName,
                                 town.townName,
                                 town.townID,
-                                town.townEn, db)
+                                town.townEn)
                         townList.add(town)
                     }
                     j.onNext(map)
@@ -63,7 +64,7 @@ fun LocalDataSource.saveCity(dbName: String, jsonStr: String, observer: Flowable
             .subscribe(observer)
 }
 
-fun LocalDataSource.readTownList(): HashMap<String, List<Town>> {
+fun LocalDataSource<GankData>.readTownList(): HashMap<String, List<Town>> {
     var map = HashMap<String, List<Town>>()
     return map
 }
@@ -88,20 +89,20 @@ class WeatherDBHelper(context: Context?, name: String?, factory: ((db: SQLiteDat
         db.execSQL(CREATE_TABLE_TOWER)
     }
 
-    fun insertIntoCity(city: String, cityen: String, db: SQLiteDatabase): Long {
+    fun insertIntoCity(city: String, cityen: String): Long {
         val values = ContentValues()
         values.put(cityName, city)
         values.put(cityEN, cityen)
-        return db.insert("city", null, values)
+        return writableDatabase.insert("city", null, values)
     }
 
-    fun insertIntoTown(city: String, town: String, townId: String, townen: String, db: SQLiteDatabase): Long {
+    fun insertIntoTown(city: String, town: String, townId: String, townen: String): Long {
         val values = ContentValues()
         values.put(townID, townId)
         values.put(townEN, townen)
         values.put(cityName, city)
         values.put(townName, town)
-        return db.insert("town", null, values)
+        return writableDatabase.insert("town", null, values)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
