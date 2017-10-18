@@ -5,7 +5,9 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Window
 import android.view.WindowManager
 import com.xiasuhuei321.gank_kotlin.extension.shortToast
+import com.xiasuhuei321.weather.TestActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         weatherIv.setOnClickListener {
             shortToast("weather icon be clicked")
         }
-//        startActivity(Intent(this, TestActivity::class.java))
+        startActivity<TestActivity>()
 //        weatherWv = WeatherView(this)
     }
 

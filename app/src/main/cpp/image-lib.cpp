@@ -10,8 +10,8 @@ int *blur_ARGB_8888(int *, int, int, int);
 extern "C"
 JNIEXPORT void JNICALL
 Java_com_xiasuhuei321_gank_1kotlin_ImageProcess_blur(JNIEnv *env, jclass obj,
-                                                jintArray arrayIn, jint h,
-                                                jint w, jint r) {
+                                                jintArray arrayIn, jint w,
+                                                jint h, jint r) {
     jint *pixels;
     pixels = env->GetIntArrayElements(arrayIn, 0);
     if (pixels != NULL) {
@@ -68,7 +68,8 @@ int *blur_ARGB_8888(int *pix, int w, int h, int radius) {
                 rinsum += sir[0];
                 ginsum += sir[1];
                 binsum += sir[2];
-            } else {
+            }
+            else {
                 routsum += sir[0];
                 goutsum += sir[1];
                 boutsum += sir[2];
@@ -147,7 +148,8 @@ int *blur_ARGB_8888(int *pix, int w, int h, int radius) {
                 rinsum += sir[0];
                 ginsum += sir[1];
                 binsum += sir[2];
-            } else {
+            }
+            else {
                 routsum += sir[0];
                 goutsum += sir[1];
                 boutsum += sir[2];
@@ -160,7 +162,7 @@ int *blur_ARGB_8888(int *pix, int w, int h, int radius) {
         yi = x;
         stackpointer = radius;
         for (y = 0; y < h; y++) {
-            // Preserve shapeAlpha channel: ( 0xff000000 & pix[yi] )
+            // Preserve alpha channel: ( 0xff000000 & pix[yi] )
             pix[yi] = (0xff000000 & pix[yi]) | (dv[rsum] << 16) | (dv[gsum] << 8) | dv[bsum];
 
             rsum -= routsum;
