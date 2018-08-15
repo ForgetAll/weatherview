@@ -1,5 +1,4 @@
-# GankKotlin
-A practice for kotlin, use gank.io's data.
+# Weather
 
 Now the app is under development, here are some pictures for preview.The native code built by CMake.
 
