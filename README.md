@@ -1,6 +1,6 @@
 # Weather
 
-Now the app is under development, here are some pictures for preview.The native code built by CMake.
+Now the app is under development, here are some pictures for preview.The native code build by CMake.
 
 ![rain](./screenshot/rain.gif)
 
